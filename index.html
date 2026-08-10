@@ -8,8 +8,7 @@
      COMO EDITAR — procure por "EDITE". Ainda faltam:
      1. O usuário do Instagram
      2. Os textos da bio e das bandeiras
-     3. O valor arrecadado e a meta da vaquinha
-     4. Os dados do rodapé (partido, CNPJ, e-mail)
+     3. Os dados do rodapé (CNPJ de campanha)
      A logo e a foto já estão embutidas no código.
      Este arquivo funciona sozinho, não precisa de nenhuma imagem junto.
      ============================================================ -->
@@ -39,9 +38,6 @@
   --display:'Archivo',system-ui,sans-serif;
   --texto:'IBM Plex Sans',system-ui,sans-serif;
   --dado:'IBM Plex Mono',ui-monospace,monospace;
-
-  /* EDITE: quanto da meta já foi arrecadado */
-  --progresso:0.42%;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -130,15 +126,6 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--ouro);outline-offse
 .bandeiras .num{font-family:var(--dado);font-size:11px;font-weight:500;color:var(--ouro);padding-top:4px;flex:none}
 .bandeiras h3{font-family:var(--display);font-style:italic;font-weight:700;text-transform:uppercase;font-size:17px}
 .bandeiras p{font-size:14.5px;margin-top:2px;color:var(--concreto)}
-
-/* ---------- vaquinha ---------- */
-.vaquinha{background:var(--marinho);padding:38px 0 40px}
-.meta{margin-top:22px}
-.trilho{height:13px;border-radius:99px;background:rgba(246,247,250,.15);overflow:hidden}
-.barra{height:100%;width:var(--progresso);min-width:10px;background:var(--ouro);border-radius:99px}
-.valores{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--dado);font-size:12px;color:var(--concreto)}
-.valores b{color:var(--papel);font-weight:500}
-.vaquinha .btn{background:var(--ouro);border-color:var(--ouro);color:#0A1734;justify-content:center}
 
 /* ---------- rodapé ---------- */
 footer{padding:32px 0 40px;border-top:1.5px solid rgba(246,247,250,.13);text-align:center}
@@ -492,12 +479,11 @@ fill="var(--tinta-marca)" stroke="none">
     </div>
 
     <nav class="botoes">
-      <a class="btn btn--destaque" href="https://tcmichello.com.br" target="_blank" rel="noopener">
+      <a class="btn btn--destaque" href="https://docs.google.com/forms/d/e/1FAIpQLSczCrhnksg8rm-AJNotCWlKxZjhWCvGX9X0lbhoUGydmXUZTQ/viewform" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 21s-8-4.9-8-10.4A4.7 4.7 0 0 1 12 7a4.7 4.7 0 0 1 8 3.6C20 16.1 12 21 12 21z"/></svg>
-        Apoiar a campanha <small>Vaquinha</small>
+        Seja meu amigo <small>Formulário</small>
       </a>
 
-      <!-- EDITE: troque pelo usuário do Instagram -->
       <a class="btn" href="https://instagram.com/tcmichello" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.9c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.2-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.9s0-3.6.1-4.9C2.3 4 3.9 2.4 7.1 2.3c1.3 0 1.7-.1 4.9-.1zm0 3.9a5.9 5.9 0 1 0 0 11.8 5.9 5.9 0 0 0 0-11.8zm0 9.7a3.8 3.8 0 1 1 0-7.6 3.8 3.8 0 0 1 0 7.6zm6.1-9.9a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8z"/></svg>
         Seguir no Instagram <small>Perfil</small>
@@ -511,11 +497,6 @@ fill="var(--tinta-marca)" stroke="none">
       <a class="btn" href="https://wa.me/5561995623696" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .7.5l.9 2.2c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.7 1.2 1.4 1.7 2.5 2.3.2.1.4.1.5-.1l.7-.9c.2-.2.3-.2.6-.1l2 1c.3.1.5.2.5.4 0 .1 0 .6-.2 1.2z"/></svg>
         Falar no WhatsApp <small>WhatsApp</small>
-      </a>
-
-      <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSczCrhnksg8rm-AJNotCWlKxZjhWCvGX9X0lbhoUGydmXUZTQ/viewform" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 21s-8-4.9-8-10.4A4.7 4.7 0 0 1 12 7a4.7 4.7 0 0 1 8 3.6C20 16.1 12 21 12 21z"/></svg>
-        Seja meu amigo <small>Formulário</small>
       </a>
     </nav>
   </div>
@@ -582,40 +563,6 @@ fill="var(--tinta-marca)" stroke="none">
   </div>
 </section>
 
-<!-- ==================== VAQUINHA ==================== -->
-<section class="vaquinha bloco revela" id="vaquinha">
-  <div class="wrap">
-    <div class="divisor">
-      <svg class="nervuras" viewBox="0 0 60 34" fill="none" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-        <path d="M30 3 C30 16 24 26 13 34" stroke="#F6F7FA"/>
-        <path d="M30 3 C30 18 27 28 21 34" stroke="#D9B046"/>
-        <path d="M30 2 L30 34" stroke="#D9B046"/>
-        <path d="M30 3 C30 18 33 28 39 34" stroke="#D9B046"/>
-        <path d="M30 3 C30 16 36 26 47 34" stroke="#F6F7FA"/>
-      </svg>
-      <span class="regua"></span>
-    </div>
-    <span class="rotulo">Financiamento coletivo</span>
-    <h2>Uma campanha<br>de muitas mãos</h2>
-    <!-- EDITE: os valores abaixo e a porcentagem em --progresso (lá no topo)
-         mudam a cada doação. Confira em tcmichello.com.br antes de publicar. -->
-    <p>Essa campanha se sustenta com a doação de quem acredita no trabalho. Qualquer valor entra pelo QueroApoiar, plataforma de vaquinha eleitoral homologada pelo TSE, com a lista de doações aberta para consulta.</p>
-
-    <div class="meta">
-      <div class="trilho"><div class="barra"></div></div>
-      <div class="valores">
-        <!-- EDITE: os valores aqui, e a porcentagem em --progresso lá no topo -->
-        <span>Arrecadado <b>R$ 2.100,00</b></span>
-        <span>Meta <b>R$ 500.000,00</b></span>
-      </div>
-    </div>
-
-    <div class="botoes">
-      <a class="btn" href="https://tcmichello.com.br" target="_blank" rel="noopener">Doar agora</a>
-    </div>
-  </div>
-</section>
-
 <!-- ==================== RODAPÉ ==================== -->
 <footer>
   <div class="wrap">
@@ -631,7 +578,7 @@ fill="var(--tinta-marca)" stroke="none">
 <!-- ==================== BARRA FIXA ==================== -->
 <div class="fixa">
   <div class="wrap">
-    <a href="https://tcmichello.com.br" target="_blank" rel="noopener">Apoiar a campanha</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSczCrhnksg8rm-AJNotCWlKxZjhWCvGX9X0lbhoUGydmXUZTQ/viewform" target="_blank" rel="noopener">Seja meu amigo</a>
     <button id="compartilhar" aria-label="Compartilhar esta página">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 16a3 3 0 0 0-2 .8L9 13a3 3 0 0 0 0-2l7-3.8A3 3 0 1 0 15 5c0 .3 0 .6.1.8L8 9.7a3 3 0 1 0 0 4.6l7.1 3.9c0 .2-.1.5-.1.8a3 3 0 1 0 3-3z"/></svg>
     </button>
