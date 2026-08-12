@@ -41,7 +41,7 @@
   --dado:'IBM Plex Mono',ui-monospace,monospace;
 
   /* EDITE: quanto da meta já foi arrecadado */
-  --progresso:0.42%;
+  --progresso:0.68%;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -138,6 +138,16 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--ouro);outline-offse
 .barra{height:100%;width:var(--progresso);min-width:10px;background:var(--ouro);border-radius:99px}
 .valores{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--dado);font-size:12px;color:var(--concreto)}
 .valores b{color:var(--papel);font-weight:500}
+.aovivo{
+  font-family:var(--dado);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--concreto);margin-top:9px;
+  display:flex;align-items:center;gap:7px;
+}
+.aovivo::before{
+  content:"";width:7px;height:7px;border-radius:50%;background:var(--ouro);
+  flex:none;animation:pulso 2s ease-in-out infinite;
+}
+@keyframes pulso{0%,100%{opacity:1}50%{opacity:.25}}
 .vaquinha .btn{background:var(--ouro);border-color:var(--ouro);color:#0A1734;justify-content:center}
 
 /* ---------- rodapé ---------- */
@@ -599,13 +609,15 @@ fill="var(--tinta-marca)" stroke="none">
     <p>Essa campanha se sustenta com a doação de quem acredita no trabalho. Qualquer valor entra pelo QueroApoiar, plataforma de vaquinha eleitoral homologada pelo TSE, com a lista de doações aberta para consulta.</p>
 
     <div class="meta">
-      <div class="trilho"><div class="barra"></div></div>
+      <div class="trilho"><div class="barra" id="barra"></div></div>
       <div class="valores">
-        <!-- EDITE: os valores mudam a cada doação. Confira em tcmichello.com.br
-             antes de publicar, e ajuste a porcentagem em --progresso lá no topo. -->
-        <span>Arrecadado <b>R$ 2.100,00</b></span>
+        <!-- Estes números são o "plano B": aparecem enquanto o site do QueroApoiar
+             é consultado, e continuam na tela caso a consulta não funcione.
+             Vale atualizá-los de vez em quando em tcmichello.com.br. -->
+        <span>Arrecadado <b id="arrecadado">R$ 3.420,00</b></span>
         <span>Meta <b>R$ 500.000,00</b></span>
       </div>
+      <p class="aovivo" id="aovivo">Valor atualizado direto da plataforma</p>
     </div>
 
     <div class="botoes">
@@ -651,6 +663,62 @@ const obs = new IntersectionObserver(function(entradas){
   });
 }, {threshold: .12});
 document.querySelectorAll('.revela').forEach(function(el){ obs.observe(el); });
+
+/* ============================================================
+   VALOR AO VIVO DA VAQUINHA
+   Lê o total direto da página do QueroApoiar (tcmichello.com.br)
+   e atualiza o número e a barra. Repete a cada 60 segundos.
+   Se a consulta falhar, o número que está no HTML continua na tela.
+   ============================================================ */
+(function(){
+  const META = 500000;
+  const ORIGEM = 'https://tcmichello.com.br/';
+  // Passagens usadas para contornar o bloqueio de origem cruzada (CORS).
+  const CAMINHOS = [
+    u => u,
+    u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+    u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)
+  ];
+
+  const elValor = document.getElementById('arrecadado');
+  const elBarra = document.getElementById('barra');
+  const elNota  = document.getElementById('aovivo');
+  if (!elValor) return;
+
+  function extrair(html){
+    const texto = html.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ');
+    const m = texto.match(/Total\s*arrecadado[^R]*R\$\s*([\d.]+,\d{2})/i)
+           || texto.match(/R\$\s*([\d.]+,\d{2})\s*arrecadad/i);
+    if (!m) return null;
+    const numero = parseFloat(m[1].replace(/\./g, '').replace(',', '.'));
+    return isNaN(numero) ? null : numero;
+  }
+
+  function mostrar(valor){
+    elValor.textContent = valor.toLocaleString('pt-BR', {
+      style: 'currency', currency: 'BRL'
+    });
+    const pct = Math.min(100, (valor / META) * 100);
+    elBarra.style.width = pct.toFixed(2) + '%';
+    if (elNota) elNota.textContent = 'Atualizado agora · ' + pct.toFixed(2) + '% da meta';
+  }
+
+  async function buscar(){
+    for (const caminho of CAMINHOS){
+      try{
+        const r = await fetch(caminho(ORIGEM), {cache: 'no-store'});
+        if (!r.ok) continue;
+        const valor = extrair(await r.text());
+        if (valor !== null){ mostrar(valor); return; }
+      }catch(e){ /* tenta o próximo caminho */ }
+    }
+    // Nenhum caminho funcionou: mantém o número do HTML, sem alarde.
+    if (elNota) elNota.textContent = 'Confira o total atualizado na plataforma';
+  }
+
+  buscar();
+  setInterval(buscar, 60000);
+})();
 </script>
 </body>
 </html>
